@@ -203,3 +203,40 @@ if (detailFilmuElm) {
 		)}</strong>, což bude za ${premiera.diff(dnes, 'days')} ${dnyRetezec}.`
 	}
 }
+
+/*********HODNOCENI FILMU*********/
+
+const hvezdy = document.querySelectorAll('.fa-star')
+let ohvezdickovano = 0
+
+const nastavHodnoceni = (pocetHvezd) => {
+	hvezdy.forEach((hvezda, index) => {
+		if (index < pocetHvezd) {
+			hvezda.classList.remove('far')
+			hvezda.classList.add('fas')
+		} else {
+			hvezda.classList.remove('fas')
+			hvezda.classList.add('far')
+		}
+	})
+}
+
+const hvezdaMouseEnter = (event) => {
+	nastavHodnoceni(Number(event.target.textContent))
+}
+
+const hvezdaMouseLeave = () => {
+	nastavHodnoceni(ohvezdickovano)
+}
+
+const hvezdaMouseClick = (event) => {
+	ohvezdickovano = Number(event.target.textContent)
+	nastavHodnoceni(ohvezdickovano)
+}
+
+hvezdy.forEach((hvezda) => {
+	hvezda.addEventListener('mouseenter', hvezdaMouseEnter)
+	hvezda.addEventListener('mouseleave', hvezdaMouseLeave)
+	hvezda.addEventListener('click', hvezdaMouseClick)
+})
+

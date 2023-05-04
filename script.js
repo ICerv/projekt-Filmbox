@@ -121,7 +121,9 @@ menuTlacitkoElm.addEventListener('click', () => {
 		menuTlacitkoElm.innerHTML = '<i class="fas fa-bars"></i>'
 	}
 });
+
 /*********SEZNAM FILMU*********/
+
 const seznamFilmuElm = document.querySelector('#seznam-filmu');
 if (seznamFilmuElm) {
 	seznamFilmuElm.innerHTML = '';
@@ -139,11 +141,30 @@ if (seznamFilmuElm) {
     <div class="card-body">
       <h5 class="card-title">${film.nazev}</h5>
       <p class="card-text">${film.ochutnavka}</p>
-      <a href="film.html #${film.id}" class="btn btn-primary">Přehrát</a>
+      <a href="film.html#${film.id}" class="btn btn-primary">Přehrát</a>
     </div>
   </div>
 </div>
 `
 	})
 }
+/*********DETAIL FILMU*********/
 
+const detailFilmuElm = document.querySelector('#detail-filmu');
+if (detailFilmuElm) {
+	const idFilmu = location.hash.substring(1)
+	console.log(idFilmu)
+	let film
+	filmy.forEach((porovnanyFilm) => {
+		if (porovnanyFilm.id === idFilmu) {
+			film = porovnanyFilm
+		}
+	})
+
+	detailFilmuElm.querySelector('.card-title').textContent = film.nazev
+	detailFilmuElm.querySelector('.card-text').textContent = film.popis
+	const plakat = detailFilmuElm.querySelector('.img-fluid')
+	plakat.src = film.plakat.url
+	plakat.width = film.plakat.sirka
+	plakat.height = film.plakat.vyska
+}
